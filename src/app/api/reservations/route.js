@@ -1,13 +1,15 @@
-// app/api/reservations/route.js
 import { NextResponse } from 'next/server';
-
-// Store reservations in memory (replace with database later)
-let reservations = [];
+import dbConnect from '/lib/db';
+import Reservation from '/models/Reservation';
 
 export async function POST(request) {
+    await dbConnect();
     const data = await request.json();
 
-    reservations.push(data);
-
-    return NextResponse.json({ success: true });
+    try {
+        await Reservation.create(data);
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json({ success: false }, { status: 400 });
+    }
 }
