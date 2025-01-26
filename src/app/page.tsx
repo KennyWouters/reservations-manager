@@ -1,13 +1,13 @@
 // app/page.js
 'use client'
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -21,7 +21,6 @@ export default function Home() {
       const data = await res.json();
 
       if (data.success) {
-        // Redirect to calendar page (we'll create this next)
         window.location.href = '/calendar';
       } else {
         setError('Invalid email or password');
