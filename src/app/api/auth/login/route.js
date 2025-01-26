@@ -1,17 +1,16 @@
 // app/api/auth/login/route.js
 import { NextResponse } from 'next/server';
-
-// Temporary in-memory storage (replace with MongoDB later)
-const users = [
-    { email: 'test@test.com', password: 'password123' }
-];
+import dbConnect from '/lib/db';
+import User from '/models/User';
 
 export async function POST(request) {
+    await dbConnect();
+
     try {
         const body = await request.json();
         const { email, password } = body;
 
-        const user = users.find(u => u.email === email && u.password === password);
+        const user = await User.findOne({ email, password });
 
         if (user) {
             return NextResponse.json({ success: true });
