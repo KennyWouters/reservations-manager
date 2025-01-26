@@ -1,6 +1,6 @@
 // app/page.js
 'use client'
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -9,7 +9,7 @@ export default function Home() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
